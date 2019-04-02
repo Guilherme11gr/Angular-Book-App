@@ -10,10 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatDatepickerModule,
   MatDialogModule,
-  MatInputModule, MatListModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSidenavModule,
+  MatInputModule,
+  MatListModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
   MatSortModule,
   MatTableModule,
   MatToolbarModule
@@ -24,14 +30,17 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookCardComponent } from './book-card/book-card.component';
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
+import { BookModalFormComponent } from './book-modal-form/book-modal-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookCardComponent,
-    DialogBodyComponent
+    DialogBodyComponent,
+    BookModalFormComponent
   ],
   imports: [
+    ReactiveFormsModule,
     HttpClientModule,
     MatFormFieldModule,
     MatDatepickerModule,
@@ -62,6 +71,6 @@ import { DialogBodyComponent } from './dialog-body/dialog-body.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBodyComponent]
+  entryComponents: [DialogBodyComponent, BookModalFormComponent]
 })
 export class AppModule { }

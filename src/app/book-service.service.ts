@@ -11,12 +11,6 @@ export class BookServiceService {
 
   private apiUrl = 'http://localhost:8080/api/v1/book/';
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
   constructor(private http: HttpClient) { }
 
   getBooks(): Observable<Book[]> {
@@ -27,4 +21,7 @@ export class BookServiceService {
     return this.http.delete<Book>(`${this.apiUrl}${id}`);
   }
 
+  updateBook(id: string, book: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.apiUrl}${id}`, book);
+  }
 }
