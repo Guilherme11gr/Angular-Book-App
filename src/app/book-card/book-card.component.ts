@@ -29,7 +29,6 @@ export class BookCardComponent implements OnInit {
     this.edit.emit(book);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
