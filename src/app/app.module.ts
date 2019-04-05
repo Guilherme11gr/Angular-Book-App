@@ -31,13 +31,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookCardComponent } from './book-card/book-card.component';
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 import { BookModalFormComponent } from './book-modal-form/book-modal-form.component';
+import { BookFormPageComponent } from './book-form-page/book-form-page.component';
+import { BookDashboardComponent } from './book-dashboard/book-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookCardComponent,
     DialogBodyComponent,
-    BookModalFormComponent
+    BookModalFormComponent,
+    BookFormPageComponent,
+    BookDashboardComponent
   ],
   imports: [
     ReactiveFormsModule,

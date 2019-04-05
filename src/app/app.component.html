@@ -1,7 +1,5 @@
 <div class="container">
-  <mat-toolbar color="primary">{{title}}</mat-toolbar>
+  <mat-toolbar class="header" color="primary">{{title}}</mat-toolbar>
 </div>
-
-<app-book-card [books]="books" (edit)="editBook($event)" (delete)="deleteBook($event)"></app-book-card>
 
 <router-outlet></router-outlet>

@@ -1,0 +1,4 @@
+<div class="card-container">
+  <app-book-card [books]="books" (edit)="editBook($event)" (delete)="deleteBook($event)"></app-book-card>
+</div>
+<button mat-mini-fab routerLink="/create" color="accent" class="action-button"><mat-icon>add</mat-icon></button>

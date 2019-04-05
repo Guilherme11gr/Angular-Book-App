@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import Book from '../Model/book';
 import { BookServiceService } from '../book-service.service';
@@ -9,7 +9,7 @@ import { BookServiceService } from '../book-service.service';
   templateUrl: './book-modal-form.component.html',
   styleUrls: ['./book-modal-form.component.sass']
 })
-export class BookModalFormComponent implements OnInit {
+export class BookModalFormComponent {
 
   message: string;
   description: string;
@@ -18,7 +18,6 @@ export class BookModalFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
     private bookService: BookServiceService,
     private dialogRef: MatDialogRef<BookModalFormComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
@@ -41,7 +40,7 @@ export class BookModalFormComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      const oldGenres = this.form.get('genre').value.join(',');
+      const oldGenres = this.form.get('genre').value;
 
       const newGenres = oldGenres.split(',');
 
@@ -50,14 +49,9 @@ export class BookModalFormComponent implements OnInit {
       book.genre = newGenres;
 
       this.bookService.updateBook(this.id, book).subscribe(
-        res => this.dialogRef.close(true),
-        err => this.dialogRef.close(false)
-
+        res => this.dialogRef.close(res),
+        err => this.dialogRef.close(err)
       );
     }
   }
-
-  ngOnInit() {
-  }
-
 }
