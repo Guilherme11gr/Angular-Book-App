@@ -1,0 +1,26 @@
+<mat-dialog-content [formGroup]="form" class="form-group">
+
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Author" formControlName="author">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Genres separated by commas" formControlName="genre">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5">
+      </textarea>
+  </mat-form-field>
+
+  <mat-dialog-actions class="actions">
+    <button class="mat-raised-button" (click)="handleCancel()">Back</button>
+    <button class="mat-raised-button mat-primary" (click)="handleSave()">Save</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

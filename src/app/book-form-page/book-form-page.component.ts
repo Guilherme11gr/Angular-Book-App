@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookServiceService } from '../book-service.service';
-import Book from '../Model/book';
 import { MatSnackBar } from '@angular/material';
+import Book from '../Model/book';
 
 @Component({
   selector: 'app-book-form-page',
@@ -12,29 +11,12 @@ import { MatSnackBar } from '@angular/material';
 })
 export class BookFormPageComponent implements OnInit {
 
-  form: FormGroup;
-
   constructor(
-    private fb: FormBuilder,
     private location: Location,
     private bookService: BookServiceService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar) { }
 
-    this.form = this.fb.group({
-      description: ['', Validators.required],
-      title: ['', Validators.required],
-      author: ['', Validators.required],
-      genre: ['', Validators.required],
-    });
-  }
-
-  save(): void {
-    const book: Book = { ...this.form.value };
-
-    const genres = this.form.get('genre').value.split(',');
-
-    book.genre = genres;
-
+  save(book: Book): void {
     this.bookService.saveBook(book).subscribe(
       res => {
         this.openSnackBar('Cadastro efetuado com sucesso !', 'OK');
@@ -42,6 +24,10 @@ export class BookFormPageComponent implements OnInit {
       },
       err => err.error.forEach(this.showMultipleSnackBar.bind(this))
     );
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 
   showMultipleSnackBar({ message }, i: number) {
