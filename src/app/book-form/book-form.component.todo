@@ -1,0 +1,7 @@
+Field Generos:
+  ✔ Limitar generos maximo 4, minimo 2. @done(19-04-10 00:12)
+  ☐ Fazer um select com generos pre definidos
+
+Geral:
+  ✔ Arrumar o metodo de salvar. @done(19-04-10 00:12)
+  ☐ Fazer uma validação decente antes de salvar.

@@ -8,7 +8,7 @@ class Book {
 
   author: string;
 
-  genre: [];
+  genre: Array<string>;
 }
 
 export default Book;

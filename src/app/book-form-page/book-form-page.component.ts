@@ -11,6 +11,8 @@ import Book from '../Model/book';
 })
 export class BookFormPageComponent implements OnInit {
 
+  book: Book;
+
   constructor(
     private location: Location,
     private bookService: BookServiceService,
@@ -36,11 +38,12 @@ export class BookFormPageComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3 * 1000
-    });
+    this.snackBar.open(message, action, { duration: 3 * 1000 });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.book = new Book();
+    this.book.genre = [];
+  }
 
 }
