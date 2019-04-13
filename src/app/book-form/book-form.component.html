@@ -1,43 +1,40 @@
 <mat-dialog-content>
   <form #bookForm="ngForm" class="form-group">
     <mat-form-field>
-      <input #title="ngModel" name="title" required [(ngModel)]="book.title" matInput placeholder="Title" >
+      <input #title="ngModel" name="title" required [(ngModel)]="book.title" matInput placeholder="Title">
     </mat-form-field>
-  
-    <mat-form-field>
-      <input #author="ngModel" name="author" required [(ngModel)]="book.author" matInput placeholder="Author" >
-    </mat-form-field>
-  
-    <!-- <mat-form-field>
-      <input #genre="ngModel" name="genre" required [(ngModel)]="book.genre" matInput placeholder="Genres separated by commas" >
-    </mat-form-field> -->
 
-    <mat-form-field class="chip-list">
-      <mat-chip-list #chipList>
-          <mat-chip *ngFor="let genre of book.genre" [selectable]="selectable"
-                   [removable]="removable" (removed)="remove(genre)">
-            {{genre}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="New Genre" required
-                 [matChipInputFor]="chipList"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
+    <mat-form-field>
+      <input #author="ngModel" name="author" required [(ngModel)]="book.author" matInput placeholder="Author">
     </mat-form-field>
-  
+
+    <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let genre of book.genre" [selectable]="selectable" [removable]="removable"
+          (removed)="remove(genre)">
+          {{genre}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New Genre..." #genreInput [formControl]="genreCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
+          {{genre}}
+        </mat-option>
+      </mat-autocomplete>
+
+    </mat-form-field>
+
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea #description="ngModel" required name="description" [(ngModel)]="book.description" 
-                matInput 
-                cdkTextareaAutosize 
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="2" 
-                cdkAutosizeMaxRows="5">
+      <textarea #description="ngModel" required name="description" [(ngModel)]="book.description" matInput
+        cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5">
         </textarea>
     </mat-form-field>
-  
+
     <mat-dialog-actions class="actions">
       <button class="mat-raised-button" (click)="handleCancel()">Back</button>
       <button class="mat-raised-button mat-primary" (click)="handleSave()">Save</button>

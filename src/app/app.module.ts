@@ -24,6 +24,7 @@ import {
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { BookFormComponent } from './book-form/book-form.component';
   ],
   imports: [
     FormsModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatFormFieldModule,

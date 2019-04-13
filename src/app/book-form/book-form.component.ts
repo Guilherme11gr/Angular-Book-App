@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
+import { Component, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
+import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import Book from '../Model/book';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 // tslint:disable: no-unused-expression
 
@@ -30,7 +33,29 @@ export class BookFormComponent {
   @Input()
   book: Book;
 
-  constructor() { }
+  @ViewChild('genreInput')
+  genreInput: ElementRef<HTMLInputElement>;
+
+  @ViewChild('auto')
+  matAutocomplete: MatAutocomplete;
+
+  genresList: Array<string> = ['romance', 'drama', 'suspense', 'comedia', 'ficção', 'estudo', 'terror', 'historico'];
+
+  filteredGenres: Observable<string[]>;
+
+  genreCtrl = new FormControl();
+
+  constructor() {
+    this.filteredGenres = this.genreCtrl.valueChanges.pipe(
+      startWith(null),
+      map((genre: string | null) => genre ? this._filter(genre) : this.genresList.slice()));
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.genresList.filter(genre => genre.toLowerCase().indexOf(filterValue) === 0);
+  }
 
   // Todo: fazer uma validação decente
 
@@ -44,8 +69,16 @@ export class BookFormComponent {
     this.cancel.emit();
   }
 
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.book.genre.push(event.option.viewValue);
+
+    this.genreInput.nativeElement.value = '';
+
+    this.genreCtrl.setValue(null);
+  }
+
   add(event: MatChipInputEvent): void {
-    if (this.book.genre.length || this.book.genre.length <= 3) {
+    if (!this.matAutocomplete.isOpen) {
       const input = event.input;
 
       const value = event.value;
@@ -53,6 +86,8 @@ export class BookFormComponent {
       (value || '').trim() ? this.book.genre.push(value.trim()) : null;
 
       input ? input.value = '' : null;
+
+      this.genreCtrl.setValue(null);
     }
   }
 
