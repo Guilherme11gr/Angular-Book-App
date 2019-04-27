@@ -35,6 +35,7 @@ import { BookModalFormComponent } from './book-modal-form/book-modal-form.compon
 import { BookFormPageComponent } from './book-form-page/book-form-page.component';
 import { BookDashboardComponent } from './book-dashboard/book-dashboard.component';
 import { BookFormComponent } from './book-form/book-form.component';
+import { BookDetailPageComponent } from './book-detail-page/book-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { BookFormComponent } from './book-form/book-form.component';
     BookModalFormComponent,
     BookFormPageComponent,
     BookDashboardComponent,
-    BookFormComponent
+    BookFormComponent,
+    BookDetailPageComponent
   ],
   imports: [
     FormsModule,

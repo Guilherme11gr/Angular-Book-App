@@ -3,6 +3,8 @@ import Book from '../Model/book';
 import { BookServiceService } from '../book-service.service';
 import { DialogService } from '../dialog.service';
 import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { genres } from '../selectsValues';
 
 @Component({
   selector: 'app-book-dashboard',
@@ -13,14 +15,18 @@ export class BookDashboardComponent implements OnInit {
 
   durationInSeconds = 3;
   books: Book[];
+  genres: Array<any> = genres;
+  authors: Array<any>;
 
   constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private bookService: BookServiceService,
     private dialogService: DialogService,
     private snackBar: MatSnackBar) { }
 
-  getBooks(): void {
-    this.bookService.getBooks().subscribe(books => {
+  getBooks(param?: any): void {
+    this.bookService.getBooks(param).subscribe(books => {
       this.books = books;
     });
   }
@@ -59,7 +65,24 @@ export class BookDashboardComponent implements OnInit {
     });
   }
 
+  selectionGenre({ value }) {
+    this.router.navigate(['/dashboard'], { queryParams: { genre: value } });
+  }
+
+  selectionAuthor({ value }) {
+    this.router.navigate(['/dashboard'], { queryParams: { author: value } });
+  }
+
   ngOnInit() {
-    this.getBooks();
+    this.bookService.getAuthors().subscribe(authors => this.authors = authors);
+
+    this.activatedRoute.queryParamMap
+      .subscribe(params => {
+        const param = params.get('genre') || params.get('author');
+
+        const [key] = params.keys;
+
+        this.getBooks({ key, value: param });
+      });
   }
 }

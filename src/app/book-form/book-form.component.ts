@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import Book from '../Model/book';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import Book from '../Model/book';
 
 // tslint:disable: no-unused-expression
 

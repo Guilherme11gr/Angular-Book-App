@@ -1,4 +1,27 @@
+<div class="field-container">
+  <mat-form-field class="select">
+    <mat-label>Favorite genre</mat-label>
+    <mat-select (selectionChange)="selectionGenre($event)">
+      <mat-option *ngFor="let genre of genres" [value]="genre.value">
+        {{genre.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="select">
+    <mat-label>Favorite Author</mat-label>
+    <mat-select (selectionChange)="selectionAuthor($event)">
+      <mat-option *ngFor="let author of authors" [value]="author.value">
+        {{author.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <div class="card-container">
   <app-book-card [books]="books" (edit)="editBook($event)" (delete)="deleteBook($event)"></app-book-card>
 </div>
-<button mat-mini-fab routerLink="/create" color="accent" class="action-button"><mat-icon>add</mat-icon></button>
+
+<button mat-mini-fab routerLink="/create" color="accent" class="action-button">
+  <mat-icon>add</mat-icon>
+</button>

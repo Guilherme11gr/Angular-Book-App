@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import Book from './Model/book';
 
 @Injectable({
@@ -13,8 +13,16 @@ export class BookServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.apiUrl);
+  getBooks(param: any): Observable<Book[]> {
+    const params = new HttpParams().set(param.key, param.value);
+
+    return this.http.get<Book[]>(this.apiUrl, { params });
+  }
+
+  getAuthors(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/authors`).pipe(
+      map(authorArr => authorArr.map(author => ({ value: author._id, viewValue: author.author })))
+    );
   }
 
   deleteBook(id: string): Observable<Book> {
